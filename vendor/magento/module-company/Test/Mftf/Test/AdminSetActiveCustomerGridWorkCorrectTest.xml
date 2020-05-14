@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminSetActiveCustomerGridWorkCorrectTest">
+        <annotations>
+            <features value="B2B"/>
+            <stories value="Customer Grid"/>
+            <title value="'Set Active' action on customers grid is working correctly."/>
+            <description value="Check 'Set Active' action on customers grid is working correctly."/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-17178"/>
+            <useCaseId value="MC-17007"/>
+            <group value="company"/>
+        </annotations>
+        <before>
+            <!--Enable B2B features-->
+            <magentoCLI command="config:set {{EnableCompanyConfigData.path}} {{EnableCompanyConfigData.value}}" stepKey="enableCompany"/>
+            <magentoCLI command="config:set {{EnableSharedCatalogConfigData.path}} {{EnableSharedCatalogConfigData.value}}" stepKey="enableSharedCatalog"/>
+            <magentoCLI command="config:set {{EnableB2BQuoteConfigData.path}} {{EnableB2BQuoteConfigData.value}}" stepKey="enableQuote"/>
+            <magentoCLI command="config:set {{EnableQuickOrderConfigData.path}} {{EnableQuickOrderConfigData.value}}" stepKey="enableQuickOrder"/>
+            <magentoCLI command="config:set {{EnableRequisitionListConfigData.path}} {{EnableRequisitionListConfigData.value}}" stepKey="enableRequisitionList"/>
+            <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+            <magentoCLI command="cache:flush" stepKey="flushCache"/>
+            <!--Create customer-->
+            <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <!--Delete created data-->
+            <deleteData createDataKey="createCustomer" stepKey="deleteCustomer"/>
+            <!--Disable B2B features-->
+            <magentoCLI command="config:set {{DisableRequisitionListConfigData.path}} {{DisableRequisitionListConfigData.value}}" stepKey="disableRequisitionList"/>
+            <magentoCLI command="config:set {{DisableQuickOrderConfigData.path}} {{DisableQuickOrderConfigData.value}}" stepKey="disableQuickOrder"/>
+            <magentoCLI command="config:set {{DisableB2BQuoteConfigData.path}} {{DisableB2BQuoteConfigData.value}}" stepKey="disableQuote"/>
+            <magentoCLI command="config:set {{DisableSharedCatalogConfigData.path}} {{DisableSharedCatalogConfigData.value}}" stepKey="disableSharedCatalog"/>
+            <magentoCLI command="config:set {{DisableCompanyConfigData.path}} {{DisableCompanyConfigData.value}}" stepKey="disableCompany"/>
+            <magentoCLI command="indexer:reindex" stepKey="reindex"/>
+            <magentoCLI command="cache:flush" stepKey="flushCache"/>
+            <!--Admin delete created company-->
+            <actionGroup ref="AdminDeleteCompanyActionGroup" stepKey="deleteCompany">
+                <argument name="companyName" value="{{Default_Company.company_name}}"/>
+            </actionGroup>
+            <!--Admin delete created customer-->
+            <actionGroup ref="AdminDeleteCustomerActionGroup" stepKey="deleteCreatedCustomer">
+                <argument name="customerEmail" value="Simple_US_Customer_CA.email"/>
+            </actionGroup>
+            <!--Reset filters-->
+            <amOnPage url="{{AdminCustomerPage.url}}" stepKey="openCustomerIndexPage"/>
+            <waitForPageLoad stepKey="waitToCustomerIndexPageToLoad"/>
+            <actionGroup ref="AdminResetFilterInCustomerGrid" stepKey="resetFilter"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <!--Set customer status - inactive-->
+        <actionGroup ref="OpenEditCustomerFromAdminActionGroup" stepKey="openCustomerEditPage">
+            <argument name="customer" value="$createCustomer$"/>
+        </actionGroup>
+        <actionGroup ref="AdminSetCustomerInactive" stepKey="setCustomerInactive"/>
+        <!--Check that customer status is inactive-->
+        <amOnPage url="{{AdminCustomerPage.url}}" stepKey="openAllCustomersPage"/>
+        <waitForPageLoad stepKey="waitForAllCustomersPageLoad"/>
+        <conditionalClick selector="{{AdminCustomerFiltersSection.clearAll}}" dependentSelector="{{AdminCustomerFiltersSection.clearAll}}" visible="true" stepKey="clickClearCustomersFilters"/>
+        <actionGroup ref="AdminFilterCustomerGridByEmail" stepKey="filterCustomerSecondTime">
+            <argument name="email" value="$createCustomer.email$"/>
+        </actionGroup>
+        <seeElement selector="{{AdminCustomerGridInformationSection.status('$createCustomer.email$', 'Inactive')}}" stepKey="seeCustomerStatusInactive"/>
+        <!--Set customer status - active-->
+        <actionGroup ref="AdminSetCustomerActiveViaGrid" stepKey="setCustomerActive">
+            <argument name="customerEmail" value="$createCustomer.email$"/>
+        </actionGroup>
+        <seeElement selector="{{AdminCustomerGridInformationSection.status('$createCustomer.email$', 'Active')}}" stepKey="seeCustomerStatusActive"/>
+        <!--Create new company-->
+        <amOnPage url="{{StorefrontCompanyCreatePage.url}}" stepKey="openCreateCompanyPage"/>
+        <waitForPageLoad stepKey="waitForCreateCompanyPageLoad"/>
+        <actionGroup ref="StorefrontCreateCompanyActionGroup" stepKey="createNewCompany">
+            <argument name="company" value="Default_Company"/>
+            <argument name="companyAdmin" value="Simple_US_Customer_CA"/>
+            <argument name="companyEmail" value="$createCustomer.email$"/>
+        </actionGroup>
+        <!--Check customer admin id created-->
+        <actionGroup ref="OpenEditCustomerFromAdminActionGroup" stepKey="openAdminCustomerEditPage">
+            <argument name="customer" value="Simple_US_Customer_CA"/>
+        </actionGroup>
+        <see userInput="Company admin" stepKey="seeCompanyAdmin"/>
+        <!--Assign customer to company-->
+        <actionGroup ref="OpenEditCustomerFromAdminActionGroup" stepKey="editCustomer">
+            <argument name="customer" value="$createCustomer$"/>
+        </actionGroup>
+        <actionGroup ref="AdminAddAssociateCompanyToCustomerActionGroup" stepKey="assignCompanyToCustomer">
+            <argument name="company" value="Default_Company"/>
+        </actionGroup>
+        <!--Check that customer assigned to company-->
+        <amOnPage url="{{AdminCustomerPage.url}}" stepKey="openCustomerIndexPageThirdTime"/>
+        <waitForPageLoad stepKey="waitForCustomerIndexPageLoadThirdTime"/>
+        <conditionalClick selector="{{AdminCustomerFiltersSection.clearAll}}" dependentSelector="{{AdminCustomerFiltersSection.clearAll}}" visible="true" stepKey="clearAllCustomersFilters"/>
+        <seeElement selector="{{AdminCustomerGridInformationSection.associatedCompany($createCustomer.email$, Default_Company.company_name)}}" stepKey="seeAssociatedCompany"/>
+    </test>
+</tests>

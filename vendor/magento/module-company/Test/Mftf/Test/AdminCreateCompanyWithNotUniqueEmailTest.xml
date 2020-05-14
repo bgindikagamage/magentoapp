@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCreateCompanyWithNotUniqueEmailTest">
+        <annotations>
+            <features value="Company"/>
+            <stories value="Create company"/>
+            <title value="Create Company with Admin who has not unique Email against all Websites"/>
+            <description value="Check that Company can be created with Admin who has not unique Email against all Websites"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MC-6439"/>
+            <group value="b2b"/>
+            <group value="company"/>
+        </annotations>
+        <before>
+            <actionGroup ref="LoginAsAdmin" stepKey="LoginAsAdmin"/>
+            <!-- Create website, store and store view -->
+            <actionGroup ref="AdminCreateWebsiteActionGroup" stepKey="createSecondWebsite">
+                <argument name="newWebsiteName" value="{{secondCustomWebsite.name}}"/>
+                <argument name="websiteCode" value="{{secondCustomWebsite.code}}"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateNewStoreGroupActionGroup" stepKey="createSecondStore">
+                <argument name="website" value="{{secondCustomWebsite.name}}"/>
+                <argument name="storeGroupName" value="{{customStoreGroup.name}}"/>
+                <argument name="storeGroupCode" value="{{customStoreGroup.code}}"/>
+            </actionGroup>
+            <actionGroup ref="AdminCreateStoreViewActionGroup" stepKey="createSecondStoreView">
+                <argument name="StoreGroup" value="customStoreGroup"/>
+                <argument name="customStore" value="customStore"/>
+            </actionGroup>
+            <!--Get created website data -->
+            <amOnPage url="{{AdminSystemStorePage.url}}" stepKey="navigateToNewWebsitePage"/>
+            <waitForPageLoad stepKey="waitForStoresPageLoad"/>
+            <actionGroup ref="AdminGetWebsiteIdActionGroup" stepKey="getWebsiteIdActionGroup">
+                <argument name="website" value="secondCustomWebsite"/>
+            </actionGroup>
+
+            <!-- Customer is created for main website -->
+            <createData entity="Simple_Customer_Without_Address" stepKey="createCustomerMainWebsite"/>
+            <!-- Customer is created for second website -->
+            <createData entity="Simple_GB_Customer" stepKey="createCustomerSecondWebsite">
+                <field key="website_id">{$grabFromCurrentUrlGetWebsiteIdActionGroup}</field>
+                <field key="email">$createCustomerMainWebsite.email$</field>
+            </createData>
+        </before>
+        <after>
+            <!-- Delete customer from Main Website -->
+            <deleteData createDataKey="createCustomerMainWebsite" stepKey="deleteCustomerFromMainWebsite"/>
+            <!-- Delete Company and Company admin -->
+            <actionGroup ref="AdminDeleteCompanyActionGroup" stepKey="deleteCompany">
+                <argument name="companyName" value="{{Default_Company.company_name}}"/>
+            </actionGroup>
+            <deleteData createDataKey="createCustomerSecondWebsite" stepKey="deleteCustomerFromSecondWebsite"/>
+
+            <!--Delete previously created website, Store and Store View-->
+            <actionGroup ref="AdminDeleteWebsiteActionGroup" stepKey="deleteWebsite">
+                <argument name="websiteName" value="{{secondCustomWebsite.name}}"/>
+            </actionGroup>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+
+        <actionGroup ref="AdminStartToCreateCompany" stepKey="startToCreateCompany">
+            <argument name="companyName" value="{{Default_Company.company_name}}"/>
+            <argument name="companyEmail" value="{{CustomerEntityOne.email}}"/>
+        </actionGroup>
+        <actionGroup ref="AdminFillCompanyLegalAddress" stepKey="fillCompanyLegalAddress"/>
+        <!--Fill company admin with non existing customer-->
+        <actionGroup ref="AdminFillCompanyAdmin" stepKey="fillCompanyAdminNonExistingCustomer">
+            <argument name="companyAdmin" value="UKCustomer"/>
+        </actionGroup>
+        <pressKey parameterArray="[\Facebook\WebDriver\WebDriverKeys::TAB]" selector="{{AdminNewCompanySection.companyAdminEmail}}" stepKey="pressTabOnNonExistingCustomerEmail"/>
+        <actionGroup ref="AdminCheckCompanyAdminFormData" stepKey="checkCompanyAdminFormDataForNonExistingCustomer">
+            <argument name="companyAdmin" value="UKCustomer"/>
+        </actionGroup>
+
+        <!--Fill admin email with customer from main website email and check data is changed-->
+        <fillField selector="{{AdminNewCompanySection.companyAdminEmail}}" userInput="$createCustomerMainWebsite.email$" stepKey="fillAdminEmail"/>
+        <pressKey parameterArray="[\Facebook\WebDriver\WebDriverKeys::TAB]" selector="{{AdminNewCompanySection.companyAdminEmail}}" stepKey="pressTabOnMainWebsiteCustomerEmail"/>
+        <waitForPageLoad stepKey="waitReloadedFieldsAfterEmailIsChanged"/>
+        <actionGroup ref="AdminCheckCompanyAdminFormData" stepKey="checkCompanyAdminFormDataForDefaultWebsiteCustomer">
+            <argument name="companyAdmin" value="$createCustomerMainWebsite$"/>
+        </actionGroup>
+        <!--Change admin website and check admin data is changed according to new website-->
+        <selectOption selector="{{AdminNewCompanySection.companyAdminWebsite}}" userInput="{{secondCustomWebsite.name}}" stepKey="selectSecondWebSite"/>
+        <waitForPageLoad stepKey="waitReloadedFieldsAfterWebsiteIsChanged"/>
+        <actionGroup ref="AdminCheckCompanyAdminFormData" stepKey="checkCompanyAdminFormDataForSecondWebsiteCustomer">
+            <argument name="companyAdmin" value="$createCustomerSecondWebsite$"/>
+        </actionGroup>
+        <!--Save company and check admin data is correct-->
+        <actionGroup ref="AdminNewCompanySaveActionGroup" stepKey="saveCompany"/>
+        <actionGroup ref="AdminCheckCompanyAdminFormData" stepKey="checkCompanyAdminFormDataForSecondWebsiteCustomerAfterSave">
+            <argument name="companyAdmin" value="$createCustomerSecondWebsite$"/>
+        </actionGroup>
+    </test>
+</tests>

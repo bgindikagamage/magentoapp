@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="AdminCheckThatReorderIsNotAvailableForTeamTest">
+        <annotations>
+            <features value="B2B"/>
+            <stories value="Company admin permissions"/>
+            <title value="Company admin should not have permission to reorder for team's order"/>
+            <description value="Company admin can't make 'reorder' for team's order"/>
+            <severity value="CRITICAL"/>
+            <testCaseId value="MC-17319"/>
+            <useCaseId value="MC-17193"/>
+            <group value="Company"/>
+        </annotations>
+        <before>
+            <!--Enable B2B features-->
+            <comment userInput="Enable B2B features" stepKey="enableB2bFeatures"/>
+            <magentoCLI command="config:set btob/website_configuration/company_active 1" stepKey="enableCompanies"/>
+            <magentoCLI command="config:set btob/website_configuration/quickorder_active 1" stepKey="enableOrder"/>
+            <!--Create a company and 2 customers-->
+            <comment userInput="Create a company and 2 customers" stepKey="createCompanyAnd2Customers"/>
+            <createData entity="Simple_US_Customer" stepKey="companyAdmin"/>
+            <createData entity="Simple_US_Customer" stepKey="createCustomer"/>
+            <createData entity="Default_Company" stepKey="defaultCompany">
+                <requiredEntity createDataKey="companyAdmin"/>
+            </createData>
+            <!--Create a product-->
+            <comment userInput="Create a product" stepKey="createProd"/>
+            <createData entity="SimpleSubCategory" stepKey="createCategory"/>
+            <createData entity="ApiSimpleProduct" stepKey="createProduct">
+                <requiredEntity createDataKey="createCategory"/>
+            </createData>
+            <!--Login As Admin-->
+            <comment userInput="Login As Admin" stepKey="login"/>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+        </before>
+        <after>
+            <!--Delete company-->
+            <comment userInput="Delete company" stepKey="removeCompany"/>
+            <deleteData createDataKey="defaultCompany" stepKey="deleteCompany"/>
+            <!--Delete customers-->
+            <comment userInput="Delete customers" stepKey="deleteCustomers"/>
+            <deleteData createDataKey="companyAdmin" stepKey="deleteCompanyAdmin"/>
+            <deleteData createDataKey="createCustomer" stepKey="deleteSecondCustomer"/>
+            <!--Delete product and its category-->
+            <comment userInput="Delete product and its category" stepKey="deleteProdAndCategory"/>
+            <deleteData createDataKey="createProduct" stepKey="deleteProduct"/>
+            <deleteData createDataKey="createCategory" stepKey="deleteCategory"/>
+            <!--Disable B2B features-->
+            <comment userInput="Disable B2B features" stepKey="disableB2bFeatures"/>
+            <magentoCLI command="config:set btob/website_configuration/company_active 0" stepKey="disableCompanies"/>
+            <magentoCLI command="config:set btob/website_configuration/quickorder_active 0" stepKey="disableOrder"/>
+            <!--Log out-->
+            <comment userInput="Log out" stepKey="logOut"/>
+            <actionGroup ref="logout" stepKey="logout"/>
+        </after>
+        <actionGroup ref="AdminFilterCustomerByEmail" stepKey="filterFirstCustomer">
+            <argument name="email" value="$$createCustomer.email$$"/>
+        </actionGroup>
+        <click selector="{{AdminCustomerGridSection.firstRowEditLink}}" stepKey="clickEditLink"/>
+        <waitForPageLoad stepKey="waitForPageToLoad"/>
+        <!-- Assign created Company to the second Customer -->
+        <comment userInput="Assign created Company to the second Customer" stepKey="assignCompToTheSecondCustomer"/>
+        <actionGroup ref="AdminAddACompanyToCustomerActionGroup" stepKey="assignCompanyToTheSecondCustomer">
+            <argument name="companyName" value="$$defaultCompany.company_name$$"/>
+        </actionGroup>
+        <!--Create new order for first customer-->
+        <comment userInput="Create new order for first customer" stepKey="createNewOrder"/>
+        <actionGroup ref="CreateOrderFilteringCustomerByEmailActionGroup" stepKey="createOrder">
+            <argument name="product" value="$$createProduct$$"/>
+            <argument name="customer" value="$$companyAdmin$$"/>
+        </actionGroup>
+        <grabTextFrom selector="|Order # (\d+)|" stepKey="grabOrderId"/>
+        <!--Login to storefront as second customer-->
+        <comment userInput="Login to storefront as second customer" stepKey="loginOnStorefront"/>
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefront">
+            <argument name="Customer" value="$$createCustomer$$"/>
+        </actionGroup>
+        <!--Add a product to cart-->
+        <comment userInput="Add a product to cart" stepKey="addProdToCart"/>
+        <actionGroup ref="OpenStoreFrontProductPageActionGroup" stepKey="openProductPage">
+            <argument name="productUrlKey" value="$$createProduct.custom_attributes[url_key]$$"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontAddProductToCartActionGroup" stepKey="addProductToCart">
+            <argument name="product" value="$$createProduct$$"/>
+            <argument name="productCount" value="1"/>
+        </actionGroup>
+        <actionGroup ref="StorefrontOpenMiniCartActionGroup" stepKey="openMiniCart"/>
+        <!--Create order-->
+        <comment userInput="Create order" stepKey="createOrder1"/>
+        <amOnPage url="{{CheckoutCartPage.url}}" stepKey="goToShoppingCartPage"/>
+        <actionGroup ref="PlaceOrderWithLoggedUserActionGroup" stepKey="placeOrder">
+            <argument name="shippingMethod" value="Flat Rate"/>
+        </actionGroup>
+        <!-- Open My Orders -->
+        <amOnPage url="{{StorefrontCustomerDashboardPage.url}}" stepKey="goToCustomerDashboardPage"/>
+        <waitForPageLoad stepKey="waitForCustomerDashboardPageLoad"/>
+        <actionGroup ref="StorefrontCustomerGoToSidebarMenu" stepKey="goToMyOrdersPage">
+            <argument name="menu" value="My Orders"/>
+        </actionGroup>
+        <!-- Assert first order not visible in My Orders -->
+        <comment userInput="Assert first order not visible in My Orders" stepKey="assertOrderId"/>
+        <dontSee userInput="{$grabOrderId}" stepKey="dontSeeFirstOrderId"/>
+    </test>
+</tests>

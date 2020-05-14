@@ -1,0 +1,28 @@
+{
+    "name": "magento/module-checkout-agreements-negotiable-quote",
+    "description": "N/A",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "magento/framework": "102.0.4",
+        "php": "~7.1.3||~7.2.0||~7.3.0"
+    },
+    "suggest": {
+        "magento/module-checkout-agreements": "100.3.4",
+        "magento/module-negotiable-quote": "100.1.4"
+    },
+    "type": "magento2-module",
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Magento\\CheckoutAgreementsNegotiableQuote\\": ""
+        }
+    },
+    "version": "100.1.0"
+}

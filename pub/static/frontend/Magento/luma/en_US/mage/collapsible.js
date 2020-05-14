@@ -1,0 +1,1 @@
+/var/www/html/phoenix-new/lib/web/mage/collapsible.js

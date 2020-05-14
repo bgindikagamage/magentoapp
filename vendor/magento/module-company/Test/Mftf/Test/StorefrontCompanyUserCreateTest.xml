@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<tests xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/testSchema.xsd">
+    <test name="StorefrontCompanyUserCreateTest">
+        <annotations>
+            <features value="Company Structure"/>
+            <stories value="Storefront Company User"/>
+            <title value="Storefront Company User Create"/>
+            <description value="Company admin add new user when customer prefix enabled"/>
+            <severity value="MAJOR"/>
+            <testCaseId value="MC-22611"/>
+            <useCaseId value="MC-20208"/>
+            <group value="company"/>
+        </annotations>
+        <before>
+            <!--Enable Shared Catalog feature-->
+            <magentoCLI command="config:set {{EnableCompanyConfigData.path}} {{EnableCompanyConfigData.value}}" stepKey="enableCompany"/>
+            <createData entity="Simple_US_Customer" stepKey="customer"/>
+            <createData entity="Default_Company" stepKey="company">
+                <requiredEntity createDataKey="customer"/>
+            </createData>
+            <actionGroup ref="LoginAsAdmin" stepKey="loginAsAdmin"/>
+            <!-- Go to Stores > Customer -->
+            <amOnPage url="{{AdminCustomerAttributesPage.url}}" stepKey="navigateToCustomerAttributes"/>
+            <waitForPageLoad stepKey="waitForAttributePageLoad"/>
+            <!-- Open 'prefix' attributes by its code -->
+            <actionGroup ref="AdminOpenCustomerAttributeByCodeActionGroup" stepKey="openPrefixAttribute">
+                <argument name="attributeCode" value="prefix"/>
+            </actionGroup>
+            <selectOption selector="{{AdminCustomerAttributeEditSection.valuesRequired}}" userInput="Yes" stepKey="prefixValueRequired"/>
+            <selectOption selector="{{AdminCustomerAttributeEditSection.showInSF}}" userInput="Yes" stepKey="setYesSFOption"/>
+            <!-- Save customer attribute -->
+            <actionGroup ref="ClickSaveButtonActionGroup" stepKey="clickSaveAttribute">
+                <argument name="message" value="You saved the customer attribute."/>
+            </actionGroup>
+            <magentoCLI command="cache:clean" arguments="full_page" stepKey="clearCache"/>
+        </before>
+        <after>
+            <!--Disable Shared Catalog feature-->
+            <magentoCLI command="config:set {{DisableCompanyConfigData.path}} {{DisableCompanyConfigData.value}}" stepKey="disableCompany"/>
+            <!-- Sets default option customer attribute 'prefix' for proper customer remove-->
+            <amOnPage url="{{AdminCustomerAttributesPage.url}}" stepKey="navigateToCustomerAttributes"/>
+            <waitForPageLoad stepKey="waitForAttributePageLoad"/>
+            <actionGroup ref="AdminOpenCustomerAttributeByCodeActionGroup" stepKey="openPrefixAttribute">
+                <argument name="attributeCode" value="prefix"/>
+            </actionGroup>
+            <selectOption selector="{{AdminCustomerAttributeEditSection.valuesRequired}}" userInput="No" stepKey="prefixValueNotRequired"/>
+            <selectOption selector="{{AdminCustomerAttributeEditSection.showInSF}}" userInput="No" stepKey="setNoSFOption" />
+            <actionGroup ref="ClickSaveButtonActionGroup" stepKey="saveAttribute">
+                <argument name="message" value="You saved the customer attribute."/>
+            </actionGroup>
+            <actionGroup ref="AdminGridFilterResetActionGroup" stepKey="clearCustomerAttributeGridFilters"/>
+            <!--Need deleted after removing created company customer-->
+            <deleteData createDataKey="company" stepKey="deleteCompany"/>
+            <deleteData createDataKey="customer" stepKey="deleteCustomer"/>
+            <!--Delete created customer-->
+            <actionGroup ref="AdminDeleteCustomerActionGroup" stepKey="deleteCreatedCustomer">
+                <argument name="customerEmail" value="DefaultCompanyUser.email"/>
+            </actionGroup>
+            <actionGroup ref="AdminGridFilterResetActionGroup" stepKey="clearCustomerGridFilters"/>
+            <actionGroup ref="logout" stepKey="adminLogout"/>
+            <magentoCLI command="cache:clean" arguments="full_page" stepKey="clearCache"/>
+        </after>
+        <actionGroup ref="LoginToStorefrontActionGroup" stepKey="loginToStorefront">
+            <argument name="Customer" value="$$customer$$"/>
+        </actionGroup>
+        <!--Storefront Company Structure-->
+        <amOnPage url="{{StorefrontCompanyStructurePage.url}}" stepKey="goToCompanyStructurePage"/>
+        <waitForPageLoad stepKey="waitForAttributePageLoad"/>
+        <click selector="{{StorefrontCompanyStructureSection.addUser}}" stepKey="addCompanyUser"/>
+        <actionGroup ref="StorefrontFillCustomerUserWithPrefixEnabledActionGroup" stepKey="fillFieldsNewCompanyUser"/>
+        <click selector="{{StorefrontCompanyUserCreateFormSection.submit}}" stepKey="createCompanyUser"/>
+        <waitForPageLoad stepKey="waitForPageLoad"/>
+        <waitForElementVisible selector="{{StorefrontMessagesSection.success}}" stepKey="waitForSuccessMessage"/>
+        <see selector="{{StorefrontMessagesSection.success}}" userInput="The customer was successfully created." stepKey="seeCreatedNewUserSuccessMessage"/>
+    </test>
+</tests>

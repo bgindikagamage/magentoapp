@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+<sections xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:mftf:Page/etc/SectionObject.xsd">
+    <section name="AdminNewCompanySection">
+        <element name="companyName" type="input" selector="[name='general[company_name]']"/>
+        <element name="companyEmail" type="input" selector="[name='general[company_email]']"/>
+        <element name="companyLegalAddress" type="text" selector="div[data-index='address'] strong>span:nth-of-type(1)" timeout="30"/>
+        <element name="companyStreet" type="input" selector="[name='address[street][0]']"/>
+        <element name="companyCity" type="input" selector="[name='address[city]']"/>
+        <element name="companyCountry" type="select" selector="[name='address[country_id]']"/>
+        <element name="companyState" type="select" selector="[name='address[region_id]']"/>
+        <element name="companyPostcode" type="input" selector="[name='address[postcode]']"/>
+        <element name="companyTelephone" type="input" selector="[name='address[telephone]']"/>
+        <element name="companyAdmin" type="text" selector="div[data-index='company_admin'] strong>span:nth-of-type(1)" timeout="30"/>
+        <element name="companyAdminEmail" type="input" selector="[name='company_admin[email]']"/>
+        <element name="companyAdminFirstName" type="input" selector="[name='company_admin[firstname]']"/>
+        <element name="companyAdminLastName" type="input" selector="[name='company_admin[lastname]']"/>
+        <element name="advancedSettings" type="button" selector="//span[text()='Advanced Settings']"/>
+        <element name="customerGroupDropDown" type="button" selector="div[data-action='open-search']"/>
+        <element name="customerGroupSearch" type="input" selector=".admin__action-multiselect-search-wrap input"/>
+        <element name="customerGroupFirstSharedCatalog" type="select" selector="//div[@class='action-menu-item _with-checkbox']//span[text()='{{var}}']" parameterized="true"/>
+        <element name="proceedButton" type="button" selector="//button[@class='action-primary action-accept']//span[text()='Proceed']"/>
+        <element name="companyAdminWebsite" type="select" selector="div[data-index='website_id'] select"/>
+    </section>
+</sections>
+

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /**
+  * Copyright © Magento, Inc. All rights reserved.
+  * See COPYING.txt for license details.
+  */
+-->
+
+<actionGroups xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:mftf:Test/etc/actionGroupSchema.xsd">
+    <actionGroup name="StorefrontCreateNewRequisitionList">
+        <arguments>
+            <argument name="requisitionListName" type="string" defaultValue="RL1" />
+        </arguments>
+        <amOnPage url="{{StorefrontRequisitionListIndexPage.url}}" stepKey="goToRequisitionListPage"/>
+        <waitForPageLoad stepKey="waitForLoadRequisitionListPage"/>
+        <click selector="{{StorefrontRequisitionListGridSection.createRequisitionList}}" stepKey="clickCreateRequisitionList"/>
+        <waitForAjaxLoad stepKey="waitForAjaxLoad" time="10"/>
+        <fillField selector="{{StorefrontCreateRequisitionListSection.requisitionListName}}" userInput="{{requisitionListName}}" stepKey="fillRequisitionListName"/>
+        <click selector="{{StorefrontCreateRequisitionListSection.saveButton}}" stepKey="saveRequisitionList"/>
+    </actionGroup>
+    <actionGroup name="StorefrontAddMultipleProductsAtRequisitionList">
+        <arguments>
+            <argument name="requisitionListName" type="string" defaultValue="RL1" />
+        </arguments>
+        <!--Attach first product to requisition list-->
+        <amOnPage url="{{StorefrontProductPage.url(RequisitionListProduct1.name)}}" stepKey="goToDetailFirstProductPageOnStorefront" />
+        <waitForPageLoad time="10" stepKey="waitForFirstProductPageLoad"/>
+        <!-- Add product to requisition list -->
+        <click selector="{{StorefrontProductPageSection.addToRequisitionListButton}}" stepKey="clickAddToRequisitionListButton1"/>
+        <click selector="{{StorefrontProductPageSection.selectRequisitionListName(requisitionListName)}}" stepKey="addToRequisitionList1"/>
+        <waitForPageLoad stepKey="waitForAddingToList1"/>
+
+        <!--Attach Second product to requisition list-->
+        <amOnPage url="{{StorefrontProductPage.url(RequisitionListProduct2.name)}}" stepKey="goToDetailSecondProductPageOnStorefront" />
+        <waitForPageLoad time="10" stepKey="waitForSecondProductPageLoad"/>
+        <!-- Add product to requisition list -->
+        <click selector="{{StorefrontProductPageSection.addToRequisitionListButton}}" stepKey="clickAddToRequisitionListButton2"/>
+        <click selector="{{StorefrontProductPageSection.selectRequisitionListName(requisitionListName)}}" stepKey="addToRequisitionList2"/>
+        <waitForPageLoad stepKey="waitForAddingToList2"/>
+
+        <!--Attach Third product to requisition list-->
+        <amOnPage url="{{StorefrontProductPage.url(RequisitionListProduct3.name)}}" stepKey="goToDetailThirdProductPageOnStorefront" />
+        <waitForPageLoad time="10" stepKey="waitForThirdProductPageLoad"/>
+        <!-- Add product to requisition list -->
+        <click selector="{{StorefrontProductPageSection.addToRequisitionListButton}}" stepKey="clickAddToRequisitionListButton3"/>
+        <click selector="{{StorefrontProductPageSection.selectRequisitionListName(requisitionListName)}}" stepKey="addToRequisitionList3"/>
+        <waitForPageLoad stepKey="waitForAddingToList3"/>
+    </actionGroup>
+    <actionGroup name="StorefrontCheckProductsExistenceAtRequisitionList">
+        <arguments>
+            <argument name="requisitionListName" type="string"  defaultValue="RL1" />
+        </arguments>
+        <amOnPage url="{{StorefrontRequisitionListIndexPage.url}}" stepKey="goToRequisitionListsPage"/>
+        <click selector="{{StorefrontRequisitionListGridSection.requesitionListViewLink(requisitionListName)}}" stepKey="clickViewButton"/>
+        <checkOption selector="{{StorefrontRequisitionListViewSection.selectAllItems}}" stepKey="checkAllProductItems"/>
+    </actionGroup>
+    <actionGroup name="StorefrontCheckSelectBoxAtRequisitionList">
+        <grabValueFrom selector="{{StorefrontRequisitionListViewSection.selectAllItems}}" stepKey="grabSelectAllValue"/>
+        <grabValueFrom selector="{{StorefrontRequisitionListViewSection.firstSelectBox}}" stepKey="grabFirstSelectionValue"/>
+        <assertEquals expected="1"  actual="$grabFirstSelectionValue" stepKey="assertFirstSelectedValueWithSelectAllValue"/>
+        <assertSame expectedType="string" expected="on"  actual="$grabSelectAllValue" stepKey="assertSelectAllValueWithOne"/>
+        <uncheckOption selector="{{StorefrontRequisitionListViewSection.firstSelectBox}}" stepKey="uncheckFirstSelectBox"/>
+        <uncheckOption selector="{{StorefrontRequisitionListViewSection.secondSelectBox}}" stepKey="uncheckSecondSelectBox"/>
+        <uncheckOption selector="{{StorefrontRequisitionListViewSection.thirdSelectBox}}" stepKey="uncheckThirdSelectBox"/>
+    </actionGroup>
+    <actionGroup name="StorefrontCreateRequisitionListFromProductPageActionGroup">
+        <annotations>
+            <description>Create RequisitionList from storefront product page.</description>
+        </annotations>
+        <arguments>
+            <argument name="requisitionList" type="entity" defaultValue="RequisitionListProduct1"/>
+        </arguments>
+        <click selector="{{StorefrontProductPageSection.addToRequisitionListButton}}" stepKey="clickAddToRequisitionListButton"/>
+        <click selector="{{StorefrontProductPageSection.createNewRequisitionListButton}}" stepKey="clickCreateNewRequisitionListButton"/>
+        <waitForElementVisible selector="{{StorefrontProductPageSection.requisitionListName}}" stepKey="waitForNameInputElementVisible"/>
+        <fillField selector="{{StorefrontProductPageSection.requisitionListName}}" userInput="{{requisitionList.name}}" stepKey="fillRequisitionListNameField"/>
+        <click selector="{{StorefrontCreateRequisitionListSection.saveButton}}" stepKey="clickSaveButton"/>
+        <waitForPageLoad stepKey="waitForSave"/>
+        <see selector="{{StorefrontProductPageSection.successMsg}}" userInput="Product $$createProduct.name$$ has been added to the requisition list {{requisitionList.name}}." stepKey="seeSuccessMessage"/>
+    </actionGroup>
+    <actionGroup name="StorefrontClickViewRequisitionListActionGroup">
+        <annotations>
+            <description>Open RequisitionList view page and assert that it page title.</description>
+        </annotations>
+        <arguments>
+            <argument name="requisitionList" type="entity" defaultValue="RequisitionListProduct1"/>
+        </arguments>
+        <click selector="{{StorefrontRequisitionListGridSection.requesitionListViewLink(requisitionList.name)}}" stepKey="clickViewButton"/>
+        <waitForPageLoad stepKey="waitForViePageLoad"/>
+        <see selector="{{StorefrontRequisitionListViewSection.title}}" userInput="{{requisitionList.name}}" stepKey="seeNameInTitle"/>
+    </actionGroup>
+</actionGroups>
