@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+
+        <add id="Allure_Customer::Inactive"
+             title="Inactive Customers"
+             translate="title"
+             module="Allure_Customer"
+             sortOrder="10"
+             parent="Magento_Customer::customer"
+             action="customer/activecustomer/index"
+             resource="Allure_Customer::Inactive"/>
+    </menu>
+</config>
