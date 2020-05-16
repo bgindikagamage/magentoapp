@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<fieldset class="fieldset create info">
+
+    <form data-mage-init='{"validation": {}}' action="<?php echo $block->getFormUrl() ?>" class="form" id="DetailForm" method="post" autocomplete="off">
+
+        <div class="field field-name-firstname required">
+            <label class="label"><span>Product Id: </span></label><br>
+            <div class="control">
+                <input type="text" name="product_id" value="" title="product_id" class="input-text required-entry" data-validate="{required:true}" autocomplete="off" aria-required="true">
+            </div>
+        </div><br>
+
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action submit primary" title="Fix now"><span>Submit</span></button>
+            </div>
+        </div>
+    </form>
+</fieldset>
+
+<div id="show_product">
+    <?php 
+    $post = (array) $this->getRequest()->getPost();
+        if (!empty($post)) {
+            $objectmanager = \Magento\Framework\App\ObjectManager::getInstance();
+            $product_id = $post["product_id"]; //Replace with your product ID
+            $productimages = array();
+            $product = $objectmanager ->create('Magento\Catalog\Model\Product')->load($product_id);
+            $productimages = $product->getMediaGalleryImages();
+            foreach($productimages as $productimage)
+            { ?>
+                <div class="w3-content w3-display-container">
+        <?php echo "<img class =mySlides src = ".$productimage['url']. " height=300 width=300 />";?>
+        <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+        <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+                </div> <?php
+            }
+         }
+    ?>
+</div>
+
+
+<style>
+#show_product{
+    border-style: double;
+    padding: 50px;
+    padding-left: 100px;
+}
+.mySlides{
+    display:none;
+}
+
+</style>
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+</script>
