@@ -1,0 +1,92 @@
+<?php
+$handle = $this->getLayout()->getUpdate()->getHandles();
+if (in_array('checkout_cart_index', $handle)) {
+
+    $blockObj = $block->getLayout()->createBlock('Custom\Savecart\Block\Cart\SavedItem');
+    $itemsData = $blockObj->getSavedItem();
+    if (count($itemsData)) {
+        ?>
+        <div class="savecart_container">
+            <span class="label">Saved cart</span>
+            <br><br>
+            <table>
+                <tr>
+                    <th class="col item" scope="col"><span>Item</span></th>
+                    <th class="col price" scope="col"><span>Price</span></th>
+                    <th class="col qty" scope="col"><span>Qty</span></th>
+                    <th class="col subtotal" scope="col"><span>Subtotal</span></th>
+                </tr>
+                <?php foreach($itemsData as $data){ ?>
+                <tr>
+                    <td>
+                        <img  src="<?php echo $this->getImage($data['pid']); ?>" max-width="30%" max-height="30%">
+                        <div class="product-item-details">
+                            <strong class="product-item-name">
+                                <?php echo $data['name']; ?>
+                            </strong>
+                        </div>
+
+
+
+
+                        <button class="mycart">Add to Cart</button>
+
+                        
+                        
+                  
+                    </td>
+                
+                    <td>
+                        <span><?php echo $data['price']; ?></span>
+                    </td>
+                    <td>
+                        <span><?php echo $data['qty']; ?></span>
+                    </td>
+                    <td>
+                        <span><?php echo $data['price'] * $data['qty']; ?></span>
+                    </td>
+                    
+                      
+                </tr>
+                <?php } ?>
+            </table>
+        </div>
+
+        <?php
+    }
+}
+?>
+<style>
+    .savecart_container .label{
+        background-color:#FFFF00;
+        font-size: 20px;
+        font-weight: 6000;
+        padding:10px;
+    }
+    .savecart_container .product-item-details .product-item-name{
+        display: table-cell;
+        padding-bottom: 35px;
+        vertical-align: top;
+        white-space: normal;
+        font-size: 1.8rem;
+        width: 99%;
+        padding-left:20px;
+    }
+    .savecart_container tr td img{
+        float: left;
+        max-width: 30%; 
+        max-height: 30%;
+    }
+
+    .savecart_container{
+        width:70%;
+        margin:50px 0;
+        float: left;
+        padding:20px;
+    }  
+    .savecart_container table tr{
+        border-bottom: 1px solid #cccccc;
+    }
+
+
+</style>

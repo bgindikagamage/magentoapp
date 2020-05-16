@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.wrapper">
+            <container name="custom-footer" as="custom-footer" htmlClass="footer" htmlTag="div" after="main.content">
+                <block class="Custom\Savecart\Block\Cart\SavedItem" name="tt" as="tt" after="main.content" template="Custom_Savecart::cart/saveditem.phtml"/>            
+            </container>
+        </referenceContainer>
+         <referenceBlock name="page.wrapper">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Custom_Savecart::cart/form.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

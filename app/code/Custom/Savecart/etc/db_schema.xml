@@ -1,0 +1,19 @@
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="savecart">
+        <column xsi:type="int" name="id" unsigned="true" identity="true" nullable="false" comment="Id"/>
+        <column xsi:type="int" name="pid" nullable="false"  comment="Product ID"/>
+        <column xsi:type="int" name="customer_id" nullable="false" comment="Customer ID"/>
+        <column xsi:type="int" name="store_id" nullable="false" comment="Store ID"/>
+        <column xsi:type="varchar" name="sku" nullable="false" comment="SKU"/>
+        <column xsi:type="varchar" name="name" nullable="false" comment="name"/>
+         <column xsi:type="decimal" name="qty" scale="4" precision="12" unsigned="false" nullable="false" default="1"
+                comment="QTY"/>
+        <column xsi:type="decimal" name="price" scale="6" precision="20" unsigned="false" nullable="false" default="0"
+                comment="Price"/>
+        <column xsi:type="timestamp" name="created_time" default="CURRENT_TIMESTAMP"  comment="Created at"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true"  comment="Updated at"/> 
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table> 
+</schema>
