@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-asynchronous-operations/view/adminhtml/web/js/insert-form.js
+/var/www/html/magentoapp/vendor/magento/module-asynchronous-operations/view/adminhtml/web/js/insert-form.js

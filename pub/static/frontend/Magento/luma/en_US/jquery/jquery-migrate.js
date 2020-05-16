@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/lib/web/jquery/jquery-migrate.js
+/var/www/html/magentoapp/lib/web/jquery/jquery-migrate.js

@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-admin-notification/view/adminhtml/web/toolbar_entry.js
+/var/www/html/magentoapp/vendor/magento/module-admin-notification/view/adminhtml/web/toolbar_entry.js

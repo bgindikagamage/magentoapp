@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-page-cache/view/frontend/web/js/page-cache.js
+/var/www/html/magentoapp/vendor/magento/module-page-cache/view/frontend/web/js/page-cache.js

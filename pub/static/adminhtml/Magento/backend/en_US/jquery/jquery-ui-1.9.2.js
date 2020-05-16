@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/lib/web/jquery/jquery-ui-1.9.2.js
+/var/www/html/magentoapp/lib/web/jquery/jquery-ui-1.9.2.js

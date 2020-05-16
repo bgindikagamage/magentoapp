@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/lib/web/requirejs/domReady.js
+/var/www/html/magentoapp/lib/web/requirejs/domReady.js

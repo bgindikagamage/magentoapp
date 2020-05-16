@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-translation/view/base/web/js/mage-translation-dictionary.js
+/var/www/html/magentoapp/vendor/magento/module-translation/view/base/web/js/mage-translation-dictionary.js

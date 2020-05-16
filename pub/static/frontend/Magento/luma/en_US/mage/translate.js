@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/lib/web/mage/translate.js
+/var/www/html/magentoapp/lib/web/mage/translate.js

@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-admin-notification/view/adminhtml/web/js/grid/columns/message.js
+/var/www/html/magentoapp/vendor/magento/module-admin-notification/view/adminhtml/web/js/grid/columns/message.js

@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-customer/view/frontend/web/js/view/authentication-popup.js
+/var/www/html/magentoapp/vendor/magento/module-customer/view/frontend/web/js/view/authentication-popup.js

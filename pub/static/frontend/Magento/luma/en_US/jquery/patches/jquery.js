@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/lib/web/jquery/patches/jquery.js
+/var/www/html/magentoapp/lib/web/jquery/patches/jquery.js

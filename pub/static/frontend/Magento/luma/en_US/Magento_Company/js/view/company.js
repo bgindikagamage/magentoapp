@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-company/view/frontend/web/js/view/company.js
+/var/www/html/magentoapp/vendor/magento/module-company/view/frontend/web/js/view/company.js

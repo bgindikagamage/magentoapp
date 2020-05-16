@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-ui/view/base/web/js/form/adapter/buttons.js
+/var/www/html/magentoapp/vendor/magento/module-ui/view/base/web/js/form/adapter/buttons.js

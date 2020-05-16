@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-admin-analytics/view/adminhtml/web/js/modal/component.js
+/var/www/html/magentoapp/vendor/magento/module-admin-analytics/view/adminhtml/web/js/modal/component.js

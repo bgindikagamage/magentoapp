@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-captcha/view/frontend/web/js/view/checkout/defaultCaptcha.js
+/var/www/html/magentoapp/vendor/magento/module-captcha/view/frontend/web/js/view/checkout/defaultCaptcha.js

@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/lib/web/mage/adminhtml/globals.js
+/var/www/html/magentoapp/lib/web/mage/adminhtml/globals.js

@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-tax/view/frontend/web/js/view/checkout/minicart/subtotal/totals.js
+/var/www/html/magentoapp/vendor/magento/module-tax/view/frontend/web/js/view/checkout/minicart/subtotal/totals.js

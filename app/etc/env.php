@@ -7,7 +7,7 @@ return [
         'connection' => [
             'indexer' => [
                 'host' => 'localhost',
-                'dbname' => 'phoenix-new',
+                'dbname' => 'phoenix-d1',
                 'username' => 'allure',
                 'password' => '@11ure$$',
                 'active' => '1',
@@ -15,7 +15,7 @@ return [
             ],
             'default' => [
                 'host' => 'localhost',
-                'dbname' => 'phoenix-new',
+                'dbname' => 'phoenix-d1',
                 'username' => 'allure',
                 'password' => '@11ure$$',
                 'active' => '1',

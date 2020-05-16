@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-backend/view/adminhtml/web/js/translate.js
+/var/www/html/magentoapp/vendor/magento/module-backend/view/adminhtml/web/js/translate.js

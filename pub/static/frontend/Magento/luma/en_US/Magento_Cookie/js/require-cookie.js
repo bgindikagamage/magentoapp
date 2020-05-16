@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/magento/module-cookie/view/frontend/web/js/require-cookie.js

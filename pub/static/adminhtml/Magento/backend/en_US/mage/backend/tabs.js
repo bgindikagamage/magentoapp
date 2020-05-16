@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/lib/web/mage/backend/tabs.js
+/var/www/html/magentoapp/lib/web/mage/backend/tabs.js

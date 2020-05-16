@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-page-builder/view/base/web/js/widget-initializer.js
+/var/www/html/magentoapp/vendor/magento/module-page-builder/view/base/web/js/widget-initializer.js

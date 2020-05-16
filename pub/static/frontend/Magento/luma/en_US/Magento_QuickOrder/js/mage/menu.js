@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-quick-order/view/frontend/web/js/mage/menu.js
+/var/www/html/magentoapp/vendor/magento/module-quick-order/view/frontend/web/js/mage/menu.js

@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-checkout/view/frontend/web/js/view/minicart.js
+/var/www/html/magentoapp/vendor/magento/module-checkout/view/frontend/web/js/view/minicart.js

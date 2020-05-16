@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-cookie/view/base/web/js/jquery.storageapi.extended.js
+/var/www/html/magentoapp/vendor/magento/module-cookie/view/base/web/js/jquery.storageapi.extended.js

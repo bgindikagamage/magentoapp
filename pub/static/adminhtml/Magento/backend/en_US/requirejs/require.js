@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/lib/web/requirejs/require.js
+/var/www/html/magentoapp/lib/web/requirejs/require.js

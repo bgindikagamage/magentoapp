@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-catalog/view/adminhtml/web/catalog/product.js
+/var/www/html/magentoapp/vendor/magento/module-catalog/view/adminhtml/web/catalog/product.js

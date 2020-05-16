@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-release-notification/view/adminhtml/web/js/modal/component.js
+/var/www/html/magentoapp/vendor/magento/module-release-notification/view/adminhtml/web/js/modal/component.js

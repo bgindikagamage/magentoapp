@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-negotiable-quote/view/adminhtml/web/js/validate.js
+/var/www/html/magentoapp/vendor/magento/module-negotiable-quote/view/adminhtml/web/js/validate.js

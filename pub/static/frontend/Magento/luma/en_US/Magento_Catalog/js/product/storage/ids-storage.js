@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-catalog/view/frontend/web/js/product/storage/ids-storage.js
+/var/www/html/magentoapp/vendor/magento/module-catalog/view/frontend/web/js/product/storage/ids-storage.js

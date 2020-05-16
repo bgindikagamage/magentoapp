@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/lib/web/mage/loader.js
+/var/www/html/magentoapp/lib/web/mage/loader.js

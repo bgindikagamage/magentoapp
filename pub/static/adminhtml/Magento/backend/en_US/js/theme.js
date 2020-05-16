@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/theme-adminhtml-backend/web/js/theme.js
+/var/www/html/magentoapp/vendor/magento/theme-adminhtml-backend/web/js/theme.js

@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/module-page-builder/view/base/web/js/events.js
+/var/www/html/magentoapp/vendor/magento/module-page-builder/view/base/web/js/events.js

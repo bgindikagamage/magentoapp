@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/lib/web/mage/ie-class-fixer.js
+/var/www/html/magentoapp/lib/web/mage/ie-class-fixer.js

@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/lib/web/mage/smart-keyboard-handler.js
+/var/www/html/magentoapp/lib/web/mage/smart-keyboard-handler.js

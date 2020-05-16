@@ -1,1 +1,1 @@
-/var/www/html/phoenix-new/vendor/magento/theme-frontend-blank/Magento_Theme/web/js/responsive.js
+/var/www/html/magentoapp/vendor/magento/theme-frontend-blank/Magento_Theme/web/js/responsive.js
