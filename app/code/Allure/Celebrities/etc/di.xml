@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="celebrity_data_listing_data_source" xsi:type="string">Allure\Celebrities\Model\ResourceModel\Celebrity\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Allure\Celebrities\Model\ResourceModel\Celebrity\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">Allure_Celebrity</argument>
+            <argument name="eventPrefix" xsi:type="string">celebrity_celebritygrid_collection</argument>
+            <argument name="eventObject" xsi:type="string">celebrity_celebritygrid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Allure\Celebrities\Model\ResourceModel\Celebrity</argument>
+        </arguments>
+    </type>
+    
+  
+    
+    <!--////////////////// Image uploader ///////////////////-->
+    
+    <virtualType name="designDataImageUploader" type="Allure\Celebrities\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">celebrity</argument>
+            <argument name="basePath" xsi:type="string">celebrity</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="svg" xsi:type="string">svg</item>
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    
+    <type name="Allure\Celebrities\Controller\Adminhtml\Celebrity\Image\Upload">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">designDataImageUploader</argument>
+        </arguments>
+    </type>
+    
+    
+
+
+</config>

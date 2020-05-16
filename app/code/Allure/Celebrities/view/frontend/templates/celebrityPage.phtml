@@ -1,0 +1,48 @@
+<div id="category-title2" class="page-title category-title simple-page-title">
+    <h1>Celebrity Clientele</h1>
+</div>
+<?php //$collections = $this->getImages(); ?>
+
+
+<div class="celebrity_container">
+    <div class="row">
+        <div class="col-12 ">
+            <div class="row">
+                <?php foreach($this->getImages() as $celebrity){
+                    //echo $collection->getImage();
+                    $path = $this->getMediaUrl().'celebrity/'.$celebrity->getImage(); ?>
+                    <a href="<?php echo $block->getListUrl()?>?id=<?php echo $celebrity->getId();?>" $id="<?php echo $celebrity->getId(); ?>">
+                    <?php echo $img = '<img class=Celebrityimage  src="'.$path.'" >'; 
+                    ?>
+                    </a>
+                <?php }?>
+            </div>
+        </div>    
+    </div>  
+</div>
+
+<style>
+
+    h1 {
+        text-align:center;
+        }
+
+    .celebrity_container img{
+        width: 320px;
+        height: 320px;
+        background-size: cover !important;
+        cursor: pointer;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .celebrity_container{
+        width:100%;
+        margin:5px 0;
+        float:left;
+        padding-left:20px;
+        padding-right:20px;
+    }  
+
+    .Celebrityimage:hover {opacity: 0.7;}
+
+</style>

@@ -1,0 +1,53 @@
+<?php
+$id=$_GET['id'];
+$itemsData = $block->getImages()->addFieldToFilter('id',$id);
+    if (count($itemsData)) {
+        ?>
+        <div class="celebrity_container">
+            <br><br>
+            <table>
+                <tr>
+                    <th class="col item" scope="col"><span>Image</span></th>
+                    <th class="col price" scope="col"><span>Title</span></th>
+                    <th class="col qty" scope="col"><span>Description</span></th>
+                    <th class="col subtotal" scope="col"><span>Url</span></th>
+                </tr>
+                <?php foreach($itemsData as $data){ ?>
+                <tr>
+                    <td>
+                    <?php
+                    $path = $this->getMediaUrl().'celebrity/'.$data->getImage();
+                    echo $img = '<img class=Celebrityimage src="'.$path.'"/ >'; ?>
+
+                            </strong>
+                        </div>
+
+                    </td>
+                
+                    <td>
+                        <span><?php echo $data->getTitle(); ?></span>
+                    </td>
+                    <td>
+                        <span><?php echo $data->getDescription(); ?></span>
+                    </td>
+                    <td>
+                        <span><?php echo $data->getUrl(); ?></span>
+                    </td>
+                    
+                      
+                </tr>
+                <?php } ?>
+            </table>
+        </div>
+<?php } ?>
+
+<style>
+.celebrity_container img{
+        width: 320px;
+        height: 320px;
+        background-size: cover !important;
+        cursor: pointer;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    </style>

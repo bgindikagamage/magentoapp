@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+    
+         <add id="Allure_Celebrities::celebrity"
+        	title="CMS"
+        	translate="title"
+        	module="Allure_Celebrities"
+        	sortOrder="60"
+        	resource="Allure_Celebrities::celebrity"
+        />
+        
+        
+        <add id="Allure_Celebrities::celebrity_menu" 
+             title="Celebrities" 
+             translate="title" 
+             module="Allure_Celebrities" 
+             sortOrder="2" 
+             parent="Allure_Celebrities::celebrity"
+             action="celebrity/celebrity/index" 
+             resource="Allure_Celebrities::celebrity"/>
+
+    </menu>
+</config>
