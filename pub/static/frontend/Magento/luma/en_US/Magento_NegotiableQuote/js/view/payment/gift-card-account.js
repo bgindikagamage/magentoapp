@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/magento/module-negotiable-quote/view/frontend/web/js/view/payment/gift-card-account.js

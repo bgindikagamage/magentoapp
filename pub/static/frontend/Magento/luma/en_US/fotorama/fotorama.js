@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/lib/web/fotorama/fotorama.js

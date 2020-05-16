@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/temando/module-shipping-m2/view/frontend/web/js/model/pickup-locations.js

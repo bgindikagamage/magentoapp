@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/magento/module-gift-card-account/view/frontend/web/js/gift-card.js

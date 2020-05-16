@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/magento/module-gift-wrapping/view/frontend/web/js/view/summary/totals.js

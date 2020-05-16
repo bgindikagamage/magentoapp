@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/magento/module-negotiable-quote/view/frontend/web/js/action/remove-gift-card-from-quote-mixin.js

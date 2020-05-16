@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/magento/module-negotiable-quote/view/frontend/web/js/action/set-gift-card-information-mixin.js

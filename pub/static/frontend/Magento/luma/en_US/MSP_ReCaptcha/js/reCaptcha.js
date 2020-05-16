@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/msp/recaptcha/view/frontend/web/js/reCaptcha.js

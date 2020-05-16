@@ -348,6 +348,7 @@ return [
         'Amazon_Login' => 1,
         'Amazon_Payment' => 1,
         'Custom_Detail' => 1,
+        'Custom_Savecart' => 1,
         'Dotdigitalgroup_Email' => 1,
         'Dotdigitalgroup_Chat' => 1,
         'Dotdigitalgroup_Enterprise' => 1,

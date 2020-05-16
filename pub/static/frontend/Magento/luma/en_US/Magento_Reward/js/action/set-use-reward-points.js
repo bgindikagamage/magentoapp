@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/magento/module-reward/view/frontend/web/js/action/set-use-reward-points.js

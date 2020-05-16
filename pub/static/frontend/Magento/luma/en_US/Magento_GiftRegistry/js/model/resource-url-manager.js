@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/magento/module-gift-registry/view/frontend/web/js/model/resource-url-manager.js
