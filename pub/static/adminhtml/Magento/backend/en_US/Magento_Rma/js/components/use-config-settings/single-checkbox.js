@@ -1,1 +1,0 @@
-/var/www/html/magentoapp/vendor/magento/module-rma/view/adminhtml/web/js/components/use-config-settings/single-checkbox.js

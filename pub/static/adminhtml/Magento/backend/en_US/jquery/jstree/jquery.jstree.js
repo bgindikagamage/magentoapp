@@ -1,1 +1,0 @@
-/var/www/html/magentoapp/lib/web/jquery/jstree/jquery.jstree.js

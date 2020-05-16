@@ -1,1 +1,0 @@
-/var/www/html/magentoapp/vendor/magento/module-banner/view/frontend/web/js/model/banner.js

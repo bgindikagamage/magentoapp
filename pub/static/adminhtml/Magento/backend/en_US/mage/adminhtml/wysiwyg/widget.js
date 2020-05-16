@@ -1,1 +1,0 @@
-/var/www/html/magentoapp/lib/web/mage/adminhtml/wysiwyg/widget.js
