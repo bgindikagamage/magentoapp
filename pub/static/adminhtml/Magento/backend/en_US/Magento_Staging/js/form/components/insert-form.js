@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/magento/module-staging/view/adminhtml/web/js/form/components/insert-form.js

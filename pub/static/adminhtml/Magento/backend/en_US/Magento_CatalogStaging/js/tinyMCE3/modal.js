@@ -1,0 +1,1 @@
+/var/www/html/magentoapp/vendor/magento/module-catalog-staging/view/adminhtml/web/js/tinyMCE3/modal.js
