@@ -87,6 +87,7 @@ class InstallData implements InstallDataInterface
                 'visible' => true,
                 'user_defined' => true,
                 'sort_order' => 215,
+                'visible_on_front' => false,
                 'position' => 215,
                 'system' => false,
                 
